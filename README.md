@@ -1,2 +1,2 @@
-# websocket-glimpse
+# websocket
 A websocket demonstration project
