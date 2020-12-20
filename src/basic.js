@@ -34,10 +34,47 @@ ws.onmessage = (evt) => {
   console.log('readyState: ' + ws.readyState); // 1, OPEN
   
   console.log('Received Message: ' + evt.data);
-  ws.close();
 
+  // TODO: process evt.data coming from server below
+  // ...
+
+  ws.close();
   console.log('readyState: ' + ws.readyState); // 2, CLOSING
 };
+
+// We can also add multiple message callback functions by addEventListener
+// ws.addEventListener('message', function(event) {
+//   // response is string
+//   if (typeof event.data === 'string') {
+//     console.log('received string data');
+//   }
+//
+//   // response is blob or ArrayBuffer
+//   if (event.data instanceof ArrayBuffer) {
+//     console.log('received arraybuffer');
+//   }
+// });
+
+// We can also utilize following approaches to explicitly specify binary data type
+// Response data is blob
+// ws.binaryType = 'blob';
+// ws.onmessage = (e) => {
+//   console.log(e.data.size);
+// };
+//
+// Response data is arraybuffer
+// ws.binaryType = "arraybuffer";
+// ws.onmessage = (e) => {
+//   console.log(e.data.byteLength);
+// };
+
+// Monitor onerror callback function to deal with errors
+// ws.onerror = (evt) => {
+//   // add error handling code logic
+// };
+// ws.addEventListener('error', (evt) => {
+//   // add error handling code logic
+// });
 
 /**
  * Invoke onclose callback when connection is closed
@@ -46,6 +83,11 @@ ws.onmessage = (evt) => {
  */
 ws.onclose = (evt) => {
   console.log('readyState: ' + ws.readyState); // 3, CLOSED
+
+  // check ws.onclose() event relevant parameter
+  console.log('event code: ' + evt.code);         // 1005
+  console.log('event reason: ' + evt.reason);     // "", a empty string
+  console.log('event wasClean: ' + evt.wasClean); // true
 
   console.log('Connection Closed.');
 };
